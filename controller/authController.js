@@ -28,6 +28,10 @@ const createToken = (id)=> {
     return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: maxAge } )
 }
 
+module.exports.welcome = (req, res)=> {
+    res.send("Welcome");
+}
+
 module.exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
