@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: '*',
+  origin: 'https://simple-auth-frontend-one.vercel.app',
   credentials: true,
 }));
 
