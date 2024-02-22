@@ -1,6 +1,8 @@
 const User = require('../model/User')
 const jwt = require('jsonwebtoken')
-const connectDB = require('../db/mongoDB')
+const bcrypt = require('bcrypt')
+const connectDB = require('../db/mongoDB');
+const { ObjectId } = require('mongodb');
 connectDB();
 
 // Validation Error Handling
@@ -56,6 +58,14 @@ module.exports.login = async (req, res) => {
         res.status(400).json(err.message)
     }
 };
+
+module.exports.change_password = async (req, res)=> {
+    try {
+        res.send("JWt verifed");
+    } catch(err) {
+        res.status(400).json({ message: err });
+    }
+}
 
 
 module.exports.logout = (req, res)=> {
