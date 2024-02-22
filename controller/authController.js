@@ -1,9 +1,6 @@
 const User = require('../model/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const connectDB = require('../db/mongoDB');
-const { ObjectId } = require('mongodb');
-connectDB();
 
 // Validation Error Handling
 const handleError = (err)=> {
@@ -30,9 +27,6 @@ const createToken = (id)=> {
     return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: maxAge } )
 }
 
-module.exports.welcome = (req, res)=> {
-    res.send("Welcome");
-}
 
 module.exports.signup = async (req, res) => {
   try {
@@ -59,13 +53,7 @@ module.exports.login = async (req, res) => {
     }
 };
 
-module.exports.change_password = async (req, res)=> {
-    try {
-        res.send("JWt verifed");
-    } catch(err) {
-        res.status(400).json({ message: err });
-    }
-}
+
 
 
 module.exports.logout = (req, res)=> {
