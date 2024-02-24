@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://auth-frontend-black.vercel.app",
+    origin: "https://simple-auth-frontend-one.vercel.app",
     credentials: true,
   })
 );
