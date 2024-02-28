@@ -32,7 +32,7 @@ module.exports.signup = async (req, res) => {
     const { name, email, password } = req.body;
     let data = await User.create({ name, email, password });
     const token = createToken(data._id);
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, secure: true,
+    res.cookie("jwt", token, { maxAge: maxAge * 1000,
       httpOnly: true,
       domain: 'simple-auth-frontend-one.vercel.app' });
     res.send({ uid: data._id, name: data.name, email: data.email });
@@ -47,7 +47,7 @@ module.exports.login = async (req, res) => {
     const { email, password } = req.body;
     let data = await User.login(email, password);
     const token = createToken(data._id);
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, secure: true,
+    res.cookie("jwt", token, { maxAge: maxAge * 1000,
       httpOnly: true,
       domain: 'simple-auth-frontend-one.vercel.app' });
     res.send({ uid: data._id, name: data.name, email: data.email });
@@ -58,7 +58,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = (req, res) => {
   try {
-    res.cookie("jwt", "", { maxAge: 1, secure: true,
+    res.cookie("jwt", "", { maxAge: 1,
       httpOnly: true,
       domain: 'simple-auth-frontend-one.vercel.app'  });
     res.send("logout");
