@@ -32,7 +32,7 @@ module.exports.signup = async (req, res) => {
     const { name, email, password } = req.body;
     let data = await User.create({ name, email, password });
     const token = createToken(data._id);
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, httpOnly: true });
+    res.cookie("jwt", token, { maxAge: maxAge * 1000 });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     const error = handleError(err);
@@ -45,7 +45,7 @@ module.exports.login = async (req, res) => {
     const { email, password } = req.body;
     let data = await User.login(email, password);
     const token = createToken(data._id);
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, httpOnly: true });
+    res.cookie("jwt", token, { maxAge: maxAge * 1000 });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     res.status(400).json(err.message);
@@ -54,7 +54,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = (req, res) => {
   try {
-    res.cookie("jwt", "", { maxAge: 1, httpOnly: true });
+    res.cookie("jwt", "", { maxAge: 1 });
     res.send("logout");
   } catch (err) {
     res.send(err);
