@@ -7,7 +7,7 @@ module.exports.delete_user = async (req, res) => {
     let data = await User.deleteOne({ _id: id });
     res.cookie("jwt", "", { maxAge: 1, secure: true,
       httpOnly: true,
-      sameSite: 'none' });
+      domain: 'simple-auth-frontend-one.vercel.app' });
     res.send({ message: "user delted" });
   } catch (err) {
     res.status(400).json({ message: err });

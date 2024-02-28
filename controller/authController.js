@@ -34,7 +34,7 @@ module.exports.signup = async (req, res) => {
     const token = createToken(data._id);
     res.cookie("jwt", token, { maxAge: maxAge * 1000, secure: true,
       httpOnly: true,
-      sameSite: 'none' });
+      domain: 'simple-auth-frontend-one.vercel.app' });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     const error = handleError(err);
@@ -49,7 +49,7 @@ module.exports.login = async (req, res) => {
     const token = createToken(data._id);
     res.cookie("jwt", token, { maxAge: maxAge * 1000, secure: true,
       httpOnly: true,
-      sameSite: 'none' });
+      domain: 'simple-auth-frontend-one.vercel.app' });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     res.status(400).json(err.message);
@@ -60,7 +60,7 @@ module.exports.logout = (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 1, secure: true,
       httpOnly: true,
-      sameSite: 'none' });
+      domain: 'simple-auth-frontend-one.vercel.app'  });
     res.send("logout");
   } catch (err) {
     res.send(err);
