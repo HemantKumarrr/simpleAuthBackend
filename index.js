@@ -21,6 +21,7 @@ app.use(
 );
 
 // Routes
+app.get('/', (req,res)=> res.send("Welcome to Auth app"))
 app.use(authRouter);
 app.use(userRouter);
 
