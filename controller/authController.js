@@ -32,7 +32,7 @@ module.exports.signup = async (req, res) => {
     const { name, email, password } = req.body;
     let data = await User.create({ name, email, password });
     const token = createToken(data._id);
-    res.cookie("jwt", token, { expires: new Date(new Date().getTime() + 100*1000), httpOnly: true, sameSite: 'none' });
+    res.cookie("jwt", token, { expires: new Date(new Date().getTime() + 100*1000), httpOnly: true, sameSite: 'none', secure: true });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     const error = handleError(err);
@@ -45,7 +45,7 @@ module.exports.login = async (req, res) => {
     const { email, password } = req.body;
     let data = await User.login(email, password);
     const token = createToken(data._id);
-    res.cookie("jwt", token, { expires: new Date(new Date().getTime() + 100*1000), httpOnly: true, sameSite: 'none' });
+    res.cookie("jwt", token, { expires: new Date(new Date().getTime() + 100*1000), httpOnly: true, sameSite: 'none', secure: true });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     res.status(400).json(err.message);
