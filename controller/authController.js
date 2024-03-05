@@ -46,7 +46,7 @@ module.exports.signup = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let data = await User.login(email, password, token );
+    let data = await User.login(email, password );
     const token = createToken(data._id);
     res.cookie("jwt", token, {
       expires:new Date(Date.now()+9000000),
