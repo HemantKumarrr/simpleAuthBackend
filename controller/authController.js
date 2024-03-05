@@ -30,9 +30,12 @@ const createToken = (id) => {
 module.exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    let data = await User.create({ name, email, password });
     const token = createToken(data._id);
-    let data = await User.create({ name, email, password, token });
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, httpOnly: true, sameSite: 'none', secure: true, domain: 'simple-auth-frontend-one.vercel.app' });
+    res.cookie("jwt", token, {
+      expires:new Date(Date.now()+9000000),
+      httpOnly:true
+  });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     const error = handleError(err);
@@ -43,9 +46,12 @@ module.exports.signup = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const token = createToken(data._id);
     let data = await User.login(email, password, token );
-    res.cookie("jwt", token, { maxAge: maxAge * 1000, httpOnly: true, sameSite: 'none', secure: true, domain: 'simple-auth-frontend-one.vercel.app' });
+    const token = createToken(data._id);
+    res.cookie("jwt", token, {
+      expires:new Date(Date.now()+9000000),
+      httpOnly:true
+  });
     res.send({ uid: data._id, name: data.name, email: data.email });
   } catch (err) {
     res.status(400).json(err.message);
